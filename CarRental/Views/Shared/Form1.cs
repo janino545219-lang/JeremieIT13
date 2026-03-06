@@ -56,29 +56,36 @@ namespace CarRental
             {
                 MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Redirect based on role
-                if (userRole.ToLower() == "manager")
+                switch (userRole.ToLower())
                 {
-                    // Manager goes to Manager Dashboard
-                    ManagerForms managerDashboard = new ManagerForms();
-                    managerDashboard.Show();
-                    this.Hide();
-                }
-                else if (userRole.ToLower() == "staff" || userRole.ToLower() == "super admin")
-                {
-                    // Staff and Super Admin go to Staff Dashboard
-                    StaffForms staffDashboard = new StaffForms();
-                    staffDashboard.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    // Regular user - redirect to user dashboard (when created)
-                    MessageBox.Show("User dashboard not yet implemented.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // TODO: Uncomment when UserDashboard is created
-                    // UserDashboard userDashboard = new UserDashboard();
-                    // userDashboard.Show();
-                    // this.Hide();
+                    case "admin":
+                        AdminDashboard adminDashboard = new AdminDashboard();
+                        adminDashboard.Show();
+                        this.Hide();
+                        break;
+
+                    case "manager":
+                        ManagerForms managerDashboard = new ManagerForms();
+                        managerDashboard.Show();
+                        this.Hide();
+                        break;
+
+                    case "staff":
+                        StaffForms staffDashboard = new StaffForms();
+                        staffDashboard.Show();
+                        this.Hide();
+                        break;
+
+                    case "superadmin":
+                        SuperAdminForms superAdminDashboard = new SuperAdminForms();
+                        superAdminDashboard.Show();
+                        this.Hide();
+                        break;
+
+                    default:
+                        MessageBox.Show("User dashboard not yet implemented.", "Info",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
                 }
             }
             else
@@ -111,6 +118,11 @@ namespace CarRental
                 MessageBox.Show("Database error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return string.Empty;
             }
+        }
+
+        private void lblForgotPassword_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

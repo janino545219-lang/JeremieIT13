@@ -30,6 +30,7 @@ namespace CarRental
             {
                 currentButton.BackColor = Color.FromArgb(41, 44, 51);
             }
+
             currentButton = button;
             currentButton.BackColor = Color.FromArgb(0, 122, 204);
         }
@@ -37,22 +38,19 @@ namespace CarRental
         private void btnAddCars_Click(object sender, EventArgs e)
         {
             HighlightButton(btnAddCars);
-            // Load AddCarsForm into the main panel
             LoadForm(new AddCarForm());
         }
 
         private void btnArchiveCars_Click(object sender, EventArgs e)
         {
             HighlightButton(btnArchiveCars);
-            MessageBox.Show("Archive Cars - Form not yet created", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            // TODO: Load ArchiveCars form/user control here
+            LoadForm(new ArchiveCarsForm()); // ← CHANGED: loads the new ArchiveCarsForm
         }
 
         private void btnCarMaintenance_Click(object sender, EventArgs e)
         {
             HighlightButton(btnCarMaintenance);
-            MessageBox.Show("Car Maintenance - Form not yet created", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            // TODO: Load CarMaintenance form/user control here
+            LoadForm(new CarMaintenanceForm());
         }
 
         private void btnCreateService_Click(object sender, EventArgs e)
@@ -72,6 +70,7 @@ namespace CarRental
         private void btnLogout_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
             if (result == DialogResult.Yes)
             {
                 Form1 loginForm = new Form1();

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using CarRental.Models;
 using Microsoft.Data.SqlClient;
 
-namespace CarRental
+namespace CarRental.DAL
 {
     public class CustomerDAL
     {

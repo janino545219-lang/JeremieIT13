@@ -8,7 +8,6 @@ namespace CarRental
 {
     public partial class CarApprovalForm : Form
     {
-        // Connection string - UPDATE THIS with your actual connection string
         private string connectionString = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=CARRENTALDB;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
         private DataTable carsTable;
 
@@ -19,7 +18,6 @@ namespace CarRental
 
         private void CarApprovalForm_Load(object sender, EventArgs e)
         {
-            // Initialize the form
             SetupDataGridView();
             cmbStatusFilter.SelectedIndex = 0; // Default to "All"
             LoadCars();
@@ -27,7 +25,6 @@ namespace CarRental
 
         private void SetupDataGridView()
         {
-            // Configure DataGridView appearance
             dgvCars.EnableHeadersVisualStyles = false;
             dgvCars.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 122, 204);
             dgvCars.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -50,20 +47,19 @@ namespace CarRental
 
                     string query = @"SELECT 
                                         CarID,
-                                        PlateNumber AS 'Plate Number',
-                                        CarMaker AS 'Maker',
-                                        CarModel AS 'Model',
-                                        CarYear AS 'Year',
-                                        FuelType AS 'Fuel Type',
+                                        PlateNumber      AS 'Plate Number',
+                                        CarMaker         AS 'Maker',
+                                        CarModel         AS 'Model',
+                                        CarYear          AS 'Year',
+                                        FuelType         AS 'Fuel Type',
                                         Seats,
                                         Transmission,
                                         DailyRentalPrice AS 'Daily Price',
                                         Status,
-                                        CreatedDate AS 'Created Date'
+                                        CreatedDate      AS 'Created Date'
                                     FROM Cars 
                                     WHERE IsArchived = 0";
 
-                    // Add search filter
                     if (!string.IsNullOrWhiteSpace(searchText))
                     {
                         query += @" AND (PlateNumber LIKE @Search 
@@ -71,25 +67,18 @@ namespace CarRental
                                     OR CarModel LIKE @Search)";
                     }
 
-                    // Add status filter
                     if (statusFilter != "All")
-                    {
                         query += " AND Status = @Status";
-                    }
 
                     query += " ORDER BY CreatedDate DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         if (!string.IsNullOrWhiteSpace(searchText))
-                        {
                             cmd.Parameters.AddWithValue("@Search", "%" + searchText + "%");
-                        }
 
                         if (statusFilter != "All")
-                        {
                             cmd.Parameters.AddWithValue("@Status", statusFilter);
-                        }
 
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         carsTable = new DataTable();
@@ -97,16 +86,10 @@ namespace CarRental
 
                         dgvCars.DataSource = carsTable;
 
-                        // Hide CarID column
                         if (dgvCars.Columns["CarID"] != null)
-                        {
                             dgvCars.Columns["CarID"].Visible = false;
-                        }
 
-                        // Format columns
                         FormatDataGridViewColumns();
-
-                        // Update status label (if you want to add one)
                         UpdateStatusLabel();
                     }
                 }
@@ -120,43 +103,36 @@ namespace CarRental
 
         private void FormatDataGridViewColumns()
         {
-            // Format Daily Price as currency
             if (dgvCars.Columns["Daily Price"] != null)
-            {
                 dgvCars.Columns["Daily Price"].DefaultCellStyle.Format = "C2";
-            }
 
-            // Format Created Date
             if (dgvCars.Columns["Created Date"] != null)
-            {
                 dgvCars.Columns["Created Date"].DefaultCellStyle.Format = "MM/dd/yyyy";
-            }
 
-            // Color code Status column
             if (dgvCars.Columns["Status"] != null)
             {
                 foreach (DataGridViewRow row in dgvCars.Rows)
                 {
                     string status = row.Cells["Status"].Value?.ToString();
-                    if (status == "Approve")
+                    switch (status)
                     {
-                        row.Cells["Status"].Style.ForeColor = Color.Green;
-                        row.Cells["Status"].Style.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-                    }
-                    else if (status == "Pending")
-                    {
-                        row.Cells["Status"].Style.ForeColor = Color.Orange;
-                        row.Cells["Status"].Style.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-                    }
-                    else if (status == "Rented")
-                    {
-                        row.Cells["Status"].Style.ForeColor = Color.Red;
-                        row.Cells["Status"].Style.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-                    }
-                    else if (status == "Maintenance")
-                    {
-                        row.Cells["Status"].Style.ForeColor = Color.DarkOrange;
-                        row.Cells["Status"].Style.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                        case "Available":
+                        case "Approved":
+                            row.Cells["Status"].Style.ForeColor = Color.Green;
+                            row.Cells["Status"].Style.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                            break;
+                        case "Pending":
+                            row.Cells["Status"].Style.ForeColor = Color.Orange;
+                            row.Cells["Status"].Style.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                            break;
+                        case "Rented":
+                            row.Cells["Status"].Style.ForeColor = Color.Red;
+                            row.Cells["Status"].Style.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                            break;
+                        case "Maintenance":
+                            row.Cells["Status"].Style.ForeColor = Color.DarkOrange;
+                            row.Cells["Status"].Style.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                            break;
                     }
                 }
             }
@@ -164,25 +140,20 @@ namespace CarRental
 
         private void UpdateStatusLabel()
         {
-            // You can add a status label to show total cars if needed
-            // For now, we'll update the form title
             this.Text = $"Car Approval & Deletion - {dgvCars.Rows.Count} cars";
         }
 
         private void dgvCars_SelectionChanged(object sender, EventArgs e)
         {
-            // Enable/disable buttons based on selection
             bool hasSelection = dgvCars.SelectedRows.Count > 0;
             btnApprove.Enabled = hasSelection;
             btnDelete.Enabled = hasSelection;
 
             if (hasSelection)
             {
-                // Get the selected car's status
                 string status = dgvCars.SelectedRows[0].Cells["Status"].Value?.ToString();
 
-                // Disable approve button if already approved/available
-                if (status == "Approve")
+                if (status == "Approved" || status == "Available")
                 {
                     btnApprove.Text = "✅ Already Approved";
                     btnApprove.Enabled = false;
@@ -209,7 +180,7 @@ namespace CarRental
             string plateNumber = selectedRow.Cells["Plate Number"].Value.ToString();
             string currentStatus = selectedRow.Cells["Status"].Value.ToString();
 
-            if (currentStatus == "Approve")
+            if (currentStatus == "Approved" || currentStatus == "Available")
             {
                 MessageBox.Show("This car is already approved!", "Already Approved",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -218,7 +189,7 @@ namespace CarRental
 
             DialogResult result = MessageBox.Show(
                 $"Are you sure you want to approve the car with plate number: {plateNumber}?\n\n" +
-                $"This will change the status from '{currentStatus}' to 'Approve'.",
+                $"This will change the status from '{currentStatus}' to 'Available'.",
                 "Confirm Approval",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
@@ -232,9 +203,9 @@ namespace CarRental
                         conn.Open();
 
                         string query = @"UPDATE Cars 
-                                       SET Status = 'Approved', 
-                                           ModifiedDate = GETDATE() 
-                                       WHERE CarID = @CarID";
+                                         SET Status       = 'Available', 
+                                             ModifiedDate = GETDATE() 
+                                         WHERE CarID = @CarID";
 
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
@@ -256,11 +227,15 @@ namespace CarRental
             }
         }
 
+        // NOTE: btnDelete is the "Archive" button on the form.
+        // It performs a soft delete (IsArchived = 1) so the car
+        // moves to the Manager's Archive Cars view instead of being
+        // permanently removed.
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvCars.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Please select a car to delete.", "No Selection",
+                MessageBox.Show("Please select a car to archive.", "No Selection",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -271,59 +246,46 @@ namespace CarRental
             string carInfo = $"{selectedRow.Cells["Maker"].Value} {selectedRow.Cells["Model"].Value} ({plateNumber})";
 
             DialogResult result = MessageBox.Show(
-                $"Are you sure you want to DELETE this car?\n\n" +
+                $"Are you sure you want to ARCHIVE this car?\n\n" +
                 $"Car: {carInfo}\n\n" +
-                $"⚠️ WARNING: This action cannot be undone!\n" +
-                $"The car will be permanently removed from the database.",
-                "Confirm Deletion",
+                $"The car will be moved to the Archive and removed from the active list.\n" +
+                $"The Manager can restore it later if needed.",
+                "Confirm Archive",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
-                // Double confirmation for deletion
-                DialogResult confirmAgain = MessageBox.Show(
-                    "Are you ABSOLUTELY SURE?\n\nThis will permanently delete the car record!",
-                    "Final Confirmation",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Exclamation);
-
-                if (confirmAgain == DialogResult.Yes)
+                try
                 {
-                    try
+                    using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        using (SqlConnection conn = new SqlConnection(connectionString))
+                        conn.Open();
+
+                        // Soft delete — sets IsArchived = 1
+                        // The Manager can see and restore this car from Archive Cars
+                        string query = @"UPDATE Cars 
+                                         SET IsArchived   = 1, 
+                                             ModifiedDate = GETDATE() 
+                                         WHERE CarID = @CarID";
+
+                        using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
-                            conn.Open();
-
-                            // Option 1: Soft delete (set IsArchived = 1)
-                            // This is safer as it doesn't permanently delete the data
-                            string query = @"UPDATE Cars 
-                                           SET IsArchived = 1, 
-                                               ModifiedDate = GETDATE() 
-                                           WHERE CarID = @CarID";
-
-                            // Option 2: Hard delete (permanently remove from database)
-                            // Uncomment this if you want permanent deletion
-                            // string query = "DELETE FROM Cars WHERE CarID = @CarID";
-
-                            using (SqlCommand cmd = new SqlCommand(query, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@CarID", carId);
-                                cmd.ExecuteNonQuery();
-                            }
+                            cmd.Parameters.AddWithValue("@CarID", carId);
+                            cmd.ExecuteNonQuery();
                         }
-
-                        MessageBox.Show($"Car '{plateNumber}' has been deleted successfully!",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        LoadCars(txtSearch.Text, cmbStatusFilter.SelectedItem.ToString());
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error deleting car: {ex.Message}", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+
+                    MessageBox.Show($"Car '{plateNumber}' has been archived successfully!\n" +
+                                    $"It is now visible under Archive Cars in the Manager Panel.",
+                        "Archived", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LoadCars(txtSearch.Text, cmbStatusFilter.SelectedItem.ToString());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error archiving car: {ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

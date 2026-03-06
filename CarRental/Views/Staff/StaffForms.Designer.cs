@@ -2,15 +2,8 @@
 {
     partial class StaffForms
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,14 +15,11 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             panelSidebar = new Panel();
             btnLogout = new Button();
+            btnServiceStatus = new Button(); // NEW
             btnPayment = new Button();
             btnReturnCarRent = new Button();
             btnAddCustomer = new Button();
@@ -42,11 +32,11 @@
             panelLogo.SuspendLayout();
             panelMain.SuspendLayout();
             SuspendLayout();
-            // 
+
             // panelSidebar
-            // 
             panelSidebar.BackColor = Color.FromArgb(41, 44, 51);
             panelSidebar.Controls.Add(btnLogout);
+            panelSidebar.Controls.Add(btnServiceStatus); // NEW
             panelSidebar.Controls.Add(btnPayment);
             panelSidebar.Controls.Add(btnReturnCarRent);
             panelSidebar.Controls.Add(btnAddCustomer);
@@ -57,26 +47,44 @@
             panelSidebar.Name = "panelSidebar";
             panelSidebar.Size = new Size(250, 768);
             panelSidebar.TabIndex = 0;
-            // 
+
             // btnLogout
-            // 
             btnLogout.Dock = DockStyle.Bottom;
             btnLogout.FlatAppearance.BorderSize = 0;
             btnLogout.FlatStyle = FlatStyle.Flat;
-            btnLogout.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            btnLogout.Font = new Font("Segoe UI", 11F);
             btnLogout.ForeColor = Color.White;
-            btnLogout.Location = new Point(0, 718);
+            btnLogout.Image = new Bitmap(Properties.Resources.enter, new Size(20, 20));
+            btnLogout.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLogout.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnLogout.Location = new Point(0, 524);
+            btnLogout.Margin = new Padding(3, 2, 3, 2);
             btnLogout.Name = "btnLogout";
-            btnLogout.Padding = new Padding(10, 0, 0, 0);
-            btnLogout.Size = new Size(250, 50);
-            btnLogout.TabIndex = 5;
-            btnLogout.Text = "🚪 Logout";
+            btnLogout.Padding = new Padding(15, 0, 0, 0);
+            btnLogout.Size = new Size(219, 38);
+            btnLogout.TabIndex = 9;
+            btnLogout.Text = " Logout";
             btnLogout.TextAlign = ContentAlignment.MiddleLeft;
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
-            // 
+
+            // btnServiceStatus (NEW — appears after Payment)
+            btnServiceStatus.Dock = DockStyle.Top;
+            btnServiceStatus.FlatAppearance.BorderSize = 0;
+            btnServiceStatus.FlatStyle = FlatStyle.Flat;
+            btnServiceStatus.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            btnServiceStatus.ForeColor = Color.White;
+            btnServiceStatus.Location = new Point(0, 330);
+            btnServiceStatus.Name = "btnServiceStatus";
+            btnServiceStatus.Padding = new Padding(10, 0, 0, 0);
+            btnServiceStatus.Size = new Size(250, 50);
+            btnServiceStatus.TabIndex = 5;
+            btnServiceStatus.Text = "📋 Service Status";
+            btnServiceStatus.TextAlign = ContentAlignment.MiddleLeft;
+            btnServiceStatus.UseVisualStyleBackColor = true;
+            btnServiceStatus.Click += btnServiceStatus_Click;
+
             // btnPayment
-            // 
             btnPayment.Dock = DockStyle.Top;
             btnPayment.FlatAppearance.BorderSize = 0;
             btnPayment.FlatStyle = FlatStyle.Flat;
@@ -91,9 +99,8 @@
             btnPayment.TextAlign = ContentAlignment.MiddleLeft;
             btnPayment.UseVisualStyleBackColor = true;
             btnPayment.Click += btnPayment_Click;
-            // 
+
             // btnReturnCarRent
-            // 
             btnReturnCarRent.Dock = DockStyle.Top;
             btnReturnCarRent.FlatAppearance.BorderSize = 0;
             btnReturnCarRent.FlatStyle = FlatStyle.Flat;
@@ -108,9 +115,8 @@
             btnReturnCarRent.TextAlign = ContentAlignment.MiddleLeft;
             btnReturnCarRent.UseVisualStyleBackColor = true;
             btnReturnCarRent.Click += btnReturnCarRent_Click;
-            // 
+
             // btnAddCustomer
-            // 
             btnAddCustomer.Dock = DockStyle.Top;
             btnAddCustomer.FlatAppearance.BorderSize = 0;
             btnAddCustomer.FlatStyle = FlatStyle.Flat;
@@ -125,9 +131,8 @@
             btnAddCustomer.TextAlign = ContentAlignment.MiddleLeft;
             btnAddCustomer.UseVisualStyleBackColor = true;
             btnAddCustomer.Click += btnAddCustomer_Click;
-            // 
+
             // btnCreateCarRent
-            // 
             btnCreateCarRent.Dock = DockStyle.Top;
             btnCreateCarRent.FlatAppearance.BorderSize = 0;
             btnCreateCarRent.FlatStyle = FlatStyle.Flat;
@@ -142,9 +147,8 @@
             btnCreateCarRent.TextAlign = ContentAlignment.MiddleLeft;
             btnCreateCarRent.UseVisualStyleBackColor = true;
             btnCreateCarRent.Click += btnCreateCarRent_Click;
-            // 
+
             // panelLogo
-            // 
             panelLogo.BackColor = Color.FromArgb(30, 33, 38);
             panelLogo.Controls.Add(lblStaffPanel);
             panelLogo.Dock = DockStyle.Top;
@@ -152,9 +156,8 @@
             panelLogo.Name = "panelLogo";
             panelLogo.Size = new Size(250, 130);
             panelLogo.TabIndex = 0;
-            // 
+
             // lblStaffPanel
-            // 
             lblStaffPanel.AutoSize = true;
             lblStaffPanel.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
             lblStaffPanel.ForeColor = Color.White;
@@ -163,9 +166,8 @@
             lblStaffPanel.Size = new Size(165, 41);
             lblStaffPanel.TabIndex = 0;
             lblStaffPanel.Text = "Staff Panel";
-            // 
+
             // panelMain
-            // 
             panelMain.BackColor = Color.WhiteSmoke;
             panelMain.Controls.Add(lblWelcome);
             panelMain.Dock = DockStyle.Fill;
@@ -173,9 +175,8 @@
             panelMain.Name = "panelMain";
             panelMain.Size = new Size(1174, 768);
             panelMain.TabIndex = 1;
-            // 
+
             // lblWelcome
-            // 
             lblWelcome.AutoSize = true;
             lblWelcome.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
             lblWelcome.ForeColor = Color.FromArgb(64, 64, 64);
@@ -184,9 +185,8 @@
             lblWelcome.Size = new Size(525, 54);
             lblWelcome.TabIndex = 0;
             lblWelcome.Text = "Welcome to Staff Dashboard";
-            // 
+
             // StaffForms
-            // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1424, 768);
@@ -214,6 +214,7 @@
         private Button btnAddCustomer;
         private Button btnReturnCarRent;
         private Button btnPayment;
+        private Button btnServiceStatus; // NEW
         private Button btnLogout;
         private Panel panelMain;
         private Label lblWelcome;

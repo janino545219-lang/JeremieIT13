@@ -74,17 +74,19 @@
             btnLogout.FlatStyle = FlatStyle.Flat;
             btnLogout.Font = new Font("Segoe UI", 11F);
             btnLogout.ForeColor = Color.White;
+            btnLogout.Image = new Bitmap(Properties.Resources.enter, new Size(20, 20));
+            btnLogout.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLogout.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnLogout.Location = new Point(0, 524);
             btnLogout.Margin = new Padding(3, 2, 3, 2);
             btnLogout.Name = "btnLogout";
-            btnLogout.Padding = new Padding(9, 0, 0, 0);
+            btnLogout.Padding = new Padding(15, 0, 0, 0);
             btnLogout.Size = new Size(219, 38);
             btnLogout.TabIndex = 9;
-            btnLogout.Text = "🚪 Logout";
+            btnLogout.Text = " Logout";
             btnLogout.TextAlign = ContentAlignment.MiddleLeft;
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
-            // 
             // btnPayments
             // 
             btnPayments.Dock = DockStyle.Top;
@@ -262,6 +264,12 @@
             panelMain.Size = new Size(980, 562);
             panelMain.TabIndex = 1;
             // 
+            // lblWelcome
+            // 
+            lblWelcome.Location = new Point(0, 0);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new Size(100, 23);
+            lblWelcome.TabIndex = 0;
             // 
             // AdminDashboard
             // 
@@ -280,7 +288,6 @@
             panelLogo.ResumeLayout(false);
             panelLogo.PerformLayout();
             panelMain.ResumeLayout(false);
-            panelMain.PerformLayout();
             ResumeLayout(false);
         }
 

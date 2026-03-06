@@ -140,7 +140,7 @@
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(150, 45);
             btnDelete.TabIndex = 1;
-            btnDelete.Text = "🗑️ Delete Car";
+            btnDelete.Text = "Archive";
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 

@@ -19,17 +19,13 @@ namespace CarRental
 
         private void StaffForms_Load(object sender, EventArgs e)
         {
-            // Set form to fullscreen/maximized
             this.WindowState = FormWindowState.Maximized;
         }
 
-        // Method to highlight active button
         private void HighlightButton(Button button)
         {
             if (currentButton != null)
-            {
                 currentButton.BackColor = Color.FromArgb(41, 44, 51);
-            }
             currentButton = button;
             currentButton.BackColor = Color.FromArgb(0, 122, 204);
         }
@@ -52,7 +48,6 @@ namespace CarRental
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
             HighlightButton(btnAddCustomer);
-            // Load Customer Management Form inside the main panel
             try
             {
                 CustomerManagementForm customerForm = new CustomerManagementForm();
@@ -88,16 +83,29 @@ namespace CarRental
                 "1. Click 'Create Car Rent'\n" +
                 "2. Create a rental\n" +
                 "3. Payment form opens automatically",
-                "Payment",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+                "Payment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // ── NEW: Service Status button ──
+        private void btnServiceStatus_Click(object sender, EventArgs e)
+        {
+            HighlightButton(btnServiceStatus);
+            try
+            {
+                StaffServiceStatusForm statusForm = new StaffServiceStatusForm();
+                LoadForm(statusForm);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening Service Status: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you want to logout?",
                 "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
             if (result == DialogResult.Yes)
             {
                 Form1 loginForm = new Form1();
@@ -106,18 +114,12 @@ namespace CarRental
             }
         }
 
-        // Method to load forms into the main panel
         private void LoadForm(Form form)
         {
-            // Clear any existing controls in the panel
             panelMain.Controls.Clear();
-
-            // Configure the form to be embedded in the panel
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
             form.Dock = DockStyle.Fill;
-
-            // Add the form to the panel and show it
             panelMain.Controls.Add(form);
             panelMain.Tag = form;
             form.Show();

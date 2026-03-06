@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CarRental.DAL;
+using CarRental.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text.RegularExpressions;

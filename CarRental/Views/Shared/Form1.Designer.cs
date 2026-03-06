@@ -94,7 +94,7 @@
             lblWelcome.Name = "lblWelcome";
             lblWelcome.Size = new Size(262, 30);
             lblWelcome.TabIndex = 1;
-            lblWelcome.Text = "Login to your account";
+            lblWelcome.Text = "Welcome!";
             lblWelcome.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblUsernamePlaceholder
@@ -115,7 +115,7 @@
             txtUsername.Location = new Point(44, 154);
             txtUsername.Margin = new Padding(3, 2, 3, 2);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(263, 25);
+            txtUsername.Size = new Size(262, 25);
             txtUsername.TabIndex = 3;
             // 
             // lblPasswordPlaceholder
@@ -137,7 +137,7 @@
             txtPassword.Margin = new Padding(3, 2, 3, 2);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '●';
-            txtPassword.Size = new Size(263, 25);
+            txtPassword.Size = new Size(262, 25);
             txtPassword.TabIndex = 5;
             // 
             // btnLogin
@@ -159,28 +159,27 @@
             // 
             // chkRememberMe
             // 
-            chkRememberMe.AutoSize = true;
             chkRememberMe.Font = new Font("Segoe UI", 9F);
             chkRememberMe.ForeColor = Color.FromArgb(100, 100, 100);
-            chkRememberMe.Location = new Point(44, 240);
+            chkRememberMe.Location = new Point(44, 235);
             chkRememberMe.Margin = new Padding(3, 2, 3, 2);
             chkRememberMe.Name = "chkRememberMe";
-            chkRememberMe.Size = new Size(104, 19);
+            chkRememberMe.Size = new Size(104, 24);
             chkRememberMe.TabIndex = 7;
             chkRememberMe.Text = "Remember me";
             chkRememberMe.UseVisualStyleBackColor = true;
             // 
             // lblForgotPassword
             // 
-            lblForgotPassword.AutoSize = true;
             lblForgotPassword.Cursor = Cursors.Hand;
             lblForgotPassword.Font = new Font("Segoe UI", 9F);
             lblForgotPassword.ForeColor = Color.FromArgb(100, 100, 100);
-            lblForgotPassword.Location = new Point(201, 241);
+            lblForgotPassword.Location = new Point(210, 239);
             lblForgotPassword.Name = "lblForgotPassword";
-            lblForgotPassword.Size = new Size(100, 15);
+            lblForgotPassword.Size = new Size(109, 24);
             lblForgotPassword.TabIndex = 8;
             lblForgotPassword.Text = "Forgot password?";
+            lblForgotPassword.Click += lblForgotPassword_Click;
             // 
             // lblCreateAccount
             // 

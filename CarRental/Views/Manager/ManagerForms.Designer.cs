@@ -61,22 +61,26 @@
             panelSidebar.TabIndex = 0;
             // 
             // btnLogout
+            // btnLogout
             // 
             btnLogout.Dock = DockStyle.Bottom;
             btnLogout.FlatAppearance.BorderSize = 0;
             btnLogout.FlatStyle = FlatStyle.Flat;
-            btnLogout.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            btnLogout.Font = new Font("Segoe UI", 11F);
             btnLogout.ForeColor = Color.White;
-            btnLogout.Location = new Point(0, 718);
+            btnLogout.Image = new Bitmap(Properties.Resources.enter, new Size(20, 20));
+            btnLogout.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLogout.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnLogout.Location = new Point(0, 524);
+            btnLogout.Margin = new Padding(3, 2, 3, 2);
             btnLogout.Name = "btnLogout";
-            btnLogout.Padding = new Padding(10, 0, 0, 0);
-            btnLogout.Size = new Size(250, 50);
-            btnLogout.TabIndex = 6;
-            btnLogout.Text = "🚪 Logout";
+            btnLogout.Padding = new Padding(15, 0, 0, 0);
+            btnLogout.Size = new Size(219, 38);
+            btnLogout.TabIndex = 9;
+            btnLogout.Text = " Logout";
             btnLogout.TextAlign = ContentAlignment.MiddleLeft;
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
-            // 
             // btnMechanicService
             // 
             btnMechanicService.Dock = DockStyle.Top;
